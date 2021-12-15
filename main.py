@@ -1,4 +1,5 @@
 from random import randint
+from typing import Iterator
 import random
 import json
 from faker import Faker
@@ -11,13 +12,14 @@ def main():
     :return: Записываем 100 книг в файл .txt
     """
     with open("book_dict.txt", "w", encoding="utf-8") as f:
-        name_book = []
+        name_book = []  # fixme list comprehension
+        iterator_books = generator_book()
         for _ in range(100):
-            name_book.append(next(generator_book()))
+            name_book.append(next(iterator_books))
         json.dump(name_book, f, ensure_ascii=False, indent=4)
 
 
-def generator_book(pk: int = 1):
+def generator_book(pk: int = 1) -> Iterator[dict]:
     """
 
     :param pk: Счетчик - который увеличивается с каждой книгой
@@ -34,9 +36,7 @@ def generator_book(pk: int = 1):
                 "isbn13": generator_fake(),
                 "rating": generator_raiting(),
                 "price": generator_price(),
-                "author": [
-                    generator_author()
-                ]
+                "author": generator_author(),
             }
         }
         yield dict_book
@@ -52,12 +52,14 @@ def generator_title() -> str:
         return random.choice(f.readlines())
 
 
-def generator_year() -> int:
+def generator_year(start_year=2000, end_year=2050) -> int:
     """
 
+    :param start_year:
+    :param end_year:
     :return: рандомно указываем год от 2000 до 2050
     """
-    return randint(2000, 2050)
+    return randint(start_year, end_year)
 
 
 def generator_pages() -> int:
@@ -94,15 +96,15 @@ def generator_price() -> float:
 
 
 def generator_author() -> list:
-        """
+    """
 
-        :return: Возвращаем автора. Рандомом выдается от 1 до 3 авторов книги.
-        """
-        fake = Faker()
-        list_ = []
-        for _ in range(randint(1, 3)):
-            list_.append(fake.name())
-        return list_
+    :return: Возвращаем автора. Рандомом выдается от 1 до 3 авторов книги.
+    """
+    fake = Faker()
+    list_ = []
+    for _ in range(randint(1, 3)):
+        list_.append(fake.name())
+    return list_
 
 
 if __name__ == '__main__':
