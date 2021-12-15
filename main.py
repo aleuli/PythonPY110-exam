@@ -5,32 +5,34 @@ from faker import Faker
 from conf import model
 
 
+def main():
+    with open("book_dict.txt", "w", encoding="utf-8") as f:
+        name_book = []
+        for _ in range(100):
+            name_book.append(next(generator_book()))
+        j_dumps = json.dumps(name_book)
+        f.write(j_dumps)
+
+
 def generator_book(pk=1):
     while True:
-
         dict_book = {
-            "model": "shop_final.book",
-            "pk": 1,
+            "model": model,
+            "pk": pk,
             "fields": {
-                "title": "test_book",
-                "year": 2020,
-                "pages": 123,
-                "isbn13": "978-1-60487-647-5",
-                "rating": 5,
-                "price": 123456.0,
+                "title": generator_title(),
+                "year": generator_year(),
+                "pages": generator_pages(),
+                "isbn13": generator_fake(),
+                "rating": generator_raiting(),
+                "price": generator_price(),
                 "author": [
-                    "test_author_1",
-                    "test_author_2"
+                    generator_author()
                 ]
             }
         }
         yield dict_book
         pk += 1
-
-
-
-
-
 
 
 def generator_title():
@@ -60,15 +62,12 @@ def generator_price():
 
 
 def generator_author():
-    fake = Faker()
-    list_ = []
-    for _ in range(randint(1, 3)):
-        list_.append(fake.name())
-    return list_
+        fake = Faker()
+        list_ = []
+        for _ in range(randint(1, 3)):
+            list_.append(fake.name())
+        return list_
 
 
 if __name__ == '__main__':
-
-
-
-
+    main()
