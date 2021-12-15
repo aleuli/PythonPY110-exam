@@ -17,7 +17,7 @@ def main():
         json.dump(name_book, f, ensure_ascii=False, indent=4)
 
 
-def generator_book(pk=1):
+def generator_book(pk: int = 1):
     """
 
     :param pk: Счетчик - который увеличивается с каждой книгой
@@ -43,7 +43,7 @@ def generator_book(pk=1):
         pk += 1
 
 
-def generator_title():
+def generator_title() -> str:
     """
 
     :return: рандомно выбираем одну из пяти книг
@@ -52,7 +52,7 @@ def generator_title():
         return random.choice(f.readlines())
 
 
-def generator_year():
+def generator_year() -> int:
     """
 
     :return: рандомно указываем год от 2000 до 2050
@@ -60,7 +60,7 @@ def generator_year():
     return randint(2000, 2050)
 
 
-def generator_pages():
+def generator_pages() -> int:
     """
 
     :return: рандомно указывает количество страниц от 1 до 1000
@@ -77,7 +77,7 @@ def generator_fake():
     return fake.isbn13()
 
 
-def generator_raiting():
+def generator_raiting() -> float:
     """
 
     :return: рандомно выдаем рейтинг книги и округляем до первой цифры после запятой
@@ -85,7 +85,7 @@ def generator_raiting():
     return round(random.uniform(0.0, 5.0), 1)
 
 
-def generator_price():
+def generator_price() -> float:
     """
 
     :return: рандомно выдаем прайс книги и округляем до первой цифры после запятой
@@ -93,7 +93,7 @@ def generator_price():
     return round(random.uniform(0.0, 10000.0), 1)
 
 
-def generator_author():
+def generator_author() -> list:
         """
 
         :return: Возвращаем автора. Рандомом выдается от 1 до 3 авторов книги.
