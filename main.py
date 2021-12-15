@@ -7,8 +7,30 @@ from conf import model
 
 def generator_book(pk=1):
     while True:
-        yield pk
+
+        dict_book = {
+            "model": "shop_final.book",
+            "pk": 1,
+            "fields": {
+                "title": "test_book",
+                "year": 2020,
+                "pages": 123,
+                "isbn13": "978-1-60487-647-5",
+                "rating": 5,
+                "price": 123456.0,
+                "author": [
+                    "test_author_1",
+                    "test_author_2"
+                ]
+            }
+        }
+        yield dict_book
         pk += 1
+
+
+
+
+
 
 
 def generator_title():
@@ -39,7 +61,14 @@ def generator_price():
 
 def generator_author():
     fake = Faker()
-    name_author = fake.name()
-    return name_author
+    list_ = []
+    for _ in range(randint(1, 3)):
+        list_.append(fake.name())
+    return list_
+
+
+if __name__ == '__main__':
+
+
 
 
