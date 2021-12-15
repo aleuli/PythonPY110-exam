@@ -10,8 +10,8 @@ def main():
         name_book = []
         for _ in range(100):
             name_book.append(next(generator_book()))
-        j_dumps = json.dumps(name_book, ensure_ascii=False, indent=4)
-        f.write(j_dumps)
+        json.dump(name_book, f, ensure_ascii=False, indent=4)
+
 
 
 def generator_book(pk=1):
@@ -71,3 +71,12 @@ def generator_author():
 
 if __name__ == '__main__':
     main()
+
+
+    # def main():
+    #     with open("book_dict.txt", "w", encoding="utf-8") as f:
+    #         name_book = []
+    #         for _ in range(100):
+    #             name_book.append(next(generator_book()))
+    #         j_dumps = json.dumps(name_book, ensure_ascii=False, indent=4)
+    #         f.write(j_dumps)
