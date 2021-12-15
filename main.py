@@ -10,7 +10,7 @@ def main():
         name_book = []
         for _ in range(100):
             name_book.append(next(generator_book()))
-        j_dumps = json.dumps(name_book)
+        j_dumps = json.dumps(name_book, ensure_ascii=False, indent=4)
         f.write(j_dumps)
 
 
@@ -53,7 +53,7 @@ def generator_fake():
     return fake.isbn13()
 
 
-def generator_raiting():
+def generator_raiting() -> float:
     return round(random.uniform(0.0, 5.0), 1)
 
 
