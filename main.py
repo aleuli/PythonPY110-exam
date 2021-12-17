@@ -1,7 +1,7 @@
-from random import randint
-from typing import Iterator
 import random
 import json
+from random import randint
+from typing import Iterator
 from faker import Faker
 from conf import model
 
@@ -12,10 +12,10 @@ def main():
     :return: Записываем 100 книг в файл .txt
     """
     with open("book_dict.txt", "w", encoding="utf-8") as f:
-        name_book = []  # fixme list comprehension
         iterator_books = generator_book()
-        for _ in range(100):
-            name_book.append(next(iterator_books))
+        name_book = [next(iterator_books) for _ in range(100)]  # fixme list comprehension
+        # for _ in range(100):
+        #     name_book.append(next(iterator_books))
         json.dump(name_book, f, ensure_ascii=False, indent=4)
 
 
@@ -55,8 +55,8 @@ def generator_title() -> str:
 def generator_year(start_year=2000, end_year=2050) -> int:
     """
 
-    :param start_year:
-    :param end_year:
+    :param start_year: стартовое значение года
+    :param end_year: конечное значение года
     :return: рандомно указываем год от 2000 до 2050
     """
     return randint(start_year, end_year)
