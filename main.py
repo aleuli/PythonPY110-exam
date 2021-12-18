@@ -107,5 +107,24 @@ def generator_author() -> list:
     return list_
 
 
+def random_choice():
+    print(random.choice(list(open("books.txt", encoding="utf-8"))))
+
+
+def len_decorator(fn):
+    def wrapper(*args, **kwargs):
+        result = len(fn(*args, **kwargs))
+        if result > 15:
+            raise ValueError("Длина названия книги больше заданного значения")
+        return result
+    return wrapper
+
+
+@len_decorator
+def random_choice_decorate():
+    return random.choice(list(open("books.txt", encoding="utf-8")))
+
+
 if __name__ == '__main__':
     main()
+
