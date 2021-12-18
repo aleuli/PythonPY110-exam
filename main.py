@@ -34,7 +34,7 @@ def generator_book(pk: int = 1) -> Iterator[dict]:
                 "year": generator_year(),
                 "pages": generator_pages(),
                 "isbn13": generator_fake(),
-                "rating": generator_raiting(),
+                "rating": generator_rating(),
                 "price": generator_price(),
                 "author": generator_author(),
             }
@@ -79,7 +79,7 @@ def generator_fake():
     return fake.isbn13()
 
 
-def generator_raiting() -> float:
+def generator_rating() -> float:
     """
 
     :return: рандомно выдаем рейтинг книги и округляем до первой цифры после запятой
@@ -108,11 +108,27 @@ def generator_author() -> list:
 
 
 def random_choice():
+    """
+
+    :return: возвращаем эффективную функцию рандомного поиска книги
+    """
     print(random.choice(list(open("books.txt", encoding="utf-8"))))
 
 
 def len_decorator(fn):
+    """
+
+    :param fn: Принимаемая функция
+    :return:
+    """
     def wrapper(*args, **kwargs):
+        """
+
+        :param args: позиционный аргумент
+        :param kwargs: именованный аргумент
+        :return: создаем декоратор который возвращает количество символов,
+                если символов больше 15 то вызываем исключение ValueError
+        """
         result = len(fn(*args, **kwargs))
         if result > 15:
             raise ValueError("Длина названия книги больше заданного значения")
@@ -122,9 +138,12 @@ def len_decorator(fn):
 
 @len_decorator
 def random_choice_decorate():
+    """
+
+    :return: Задекорировали функцию поиска книги , теперь вызывает ошибку если больше 15 символов
+    """
     return random.choice(list(open("books.txt", encoding="utf-8")))
 
 
 if __name__ == '__main__':
     main()
-
