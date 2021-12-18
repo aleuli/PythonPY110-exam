@@ -9,12 +9,20 @@ books_isbn_13 = r"(?P<prefix>97[8,9])?\-(?P<group_registration>[0,1])?\-" \
 
 
 def generator_fake():
+    """
+
+    :return: Создаем 1000000 фейковых значений isbn13 и записываем в файл
+    """
     fake = Faker()
     with open("fake_generator_isbn13", "w") as f:
         f.writelines([fake.isbn13() + "\n" for _ in range(1000000)])
 
 
 def task():
+    """
+
+    :return: Проверяем 1000000 фейковых значений isbn13 по регулярке. Tru - все отлично. False - не правильно.
+    """
     book_pattern = re.compile(books_isbn_13, re.DOTALL)
     with open(books_file) as f:
         for book in book_pattern.finditer(f.read()):
